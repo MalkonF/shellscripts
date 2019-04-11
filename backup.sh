@@ -1,21 +1,40 @@
-#!/bin/bash
-##**********************************
+#!/bin/sh
+
+##***********************************************************************************
 #
-# Backup in .tgz
-# To execute script: chmod u+x backup.sh && sudo ./backup.sh
-# To restore: sudo tar -xzvf <file_backup>.tgz
+# This script backup files in .tgz
+# ----------------------------------
 #
-#Author: Malkon F
-#https://www.malkon.me
+# To execute the script: chmod u+x backup.sh && sudo sh backup.sh
+# To restore the backup: sudo tar -xzvf <file_backup>.tgz
 #
-##**********************************
+# Author: Malkon F
+# Website: https://www.malkon.me
+#
+# This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
+# welcome to redistribute it under the terms of the GNU General Public License.
+# See LICENSE file for usage of this software.
+#
+# This script is licensed under GPLv3.
+#
+##***********************************************************************************
+
+set -u
+
+AUTHOR="Malkon F"
+AUTHOR_CONTACT="contact@malkon.me"
+
+clear
+
+[ -f /bin/sh ] && echo "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
+ See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
 
 echo "\033[1mEnter the directory path to backup:\033[0m\c"
 read sbackup
 if [ -f $sbackup ]
 then
-	echo " \033[31mYou indeed entered a directory name\033[0m"
-	exit
+	echo " \033[31mYou indeed entered a directory name\033[0m" 
+	exit 1
 fi
 
 echo "\033[1mEnter the directory path where the files will be saved:\033[0m\c"
@@ -23,7 +42,7 @@ read dbackup
 if [ -f $dbackup ]
 then
         echo " \033[31mYou indeed entered a directory name\033[0m"
-	exit
+	exit 1
 fi
 
 if [ -w $dbackup ]
@@ -35,7 +54,7 @@ then
 	
 	#Calculate size available
 	size=$(df -Ph $dbackup | tail -1 | awk '{print $4}')
-	echo "The size available of $dbackup is $size. Do you want to delete all files in folder?[y/n]\c?"
+	echo "\nThe size available of $dbackup is $size. Do you want to delete all files in folder?[y/n]\c?"
 	read ans
 		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
 		then
@@ -47,10 +66,11 @@ then
 				echo "\033[01;32mFiles successfully removed.\033[0m"
 			else
 				echo "\033[31mError! Could not remove files\033[0m"
-				exit
+				exit 1
 			fi
 		fi
-	echo "Backing up $sbackup to $dbackup/$file..."
+
+	echo "\nBacking up $sbackup to $dbackup/$file..."
 
 	# Backup the files using tar.
 	tar czf  $dbackup/$file $sbackup
@@ -59,14 +79,14 @@ then
 			then
 				#Check file sizes.
 				size_backup=$(ls -lha $dbackup | tail -1 | awk '{print $5}')
-				echo "The size of backup is $size_backup."
-				echo "\033[01;32mBackup finished successfully.\033[0m"
+				echo "\nThe size of backup is: $size_backup.\n"
+				echo "\033[01;32mBackup finished successfully.\n\n\033[0m"
 			else
 				echo "\033[31mBackup error!\033[0m"
-				exit
+				exit 1
 			fi
 else
 	echo "\033[31mYou don't have permissions to write in this directory. Use sudo instead.\033[0m"
-	exit
+	exit 1
 fi
 

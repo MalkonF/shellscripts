@@ -17,6 +17,10 @@
 # This script is licensed under GPLv3.
 #
 ##***********************************************************************************
+
+[ -f /bin/sh ] && echo "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
+ See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
+
 NOME=`whoami` 
 HORA=$(date +"%T, %d/%m/%y, %A")
     echo "Atualizando o sistema com o usuário" $NOME "as" $HORA "\nAguarde até a finalização"
@@ -30,5 +34,4 @@ HORA=$(date +"%T, %d/%m/%y, %A")
 	echo "\033[31mErro! Sistema não pode ser atualizado\033[0m"
 	exit 1
     fi
-   
     exit

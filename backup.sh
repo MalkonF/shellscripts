@@ -6,10 +6,16 @@
 # ----------------------------------
 #
 # To execute the script: chmod u+x backup.sh && sudo sh backup.sh
+#
+# Examples:
+#			Enter the directory path to backup:/home/anonymous
+#           Enter the directory path where the files will be saved:/media/hd
+#
 # To restore the backup: sudo tar -xzvf <file_backup>.tgz
 #
 # Author: Malkon F
 # Website: https://www.malkon.me
+# Github: https://github.com/MalkonF
 #
 # This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are
 # welcome to redistribute it under the terms of the GNU General Public License.

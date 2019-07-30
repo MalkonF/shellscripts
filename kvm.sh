@@ -18,7 +18,7 @@
 #
 ##***********************************************************************************
 
-APP="qemu-kvm libvirt-clients libvirt-daemon-system"
+APP="qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils "
 
 if egrep  -iq "svm|vmx" /proc/cpuinfo; 
 then
@@ -34,4 +34,22 @@ then
 else
 	echo "KVM requires Intel VT or AMD SVM technologies to work"
 fi
+
+echo "Dar permissão para outro usuário executar o KVM?"
+read USER_EXEC
+if [ $USER_EXEC = "y" ] 
+then
+	echo "Qual usuário?"
+	read USER
+	USER_EXIST=$(id -u $USER > /dev/null 2>&1;echo $?)
+	if [ $USER_EXIST -eq 0 ]
+	then
+		adduser $USER libvirt
+		adduser $USER libvirt-qemu
+	else
+		echo "This user don't exist"
+	fi
+fi
+
+
 

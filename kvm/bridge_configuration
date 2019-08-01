@@ -1,0 +1,15 @@
+auto br0
+iface br0 inet dhcp
+bridge_ports eth0
+
+#Uncomment to configure static ip address
+#auto br0
+#iface br0 inet static
+#	address 192.168.15.7
+#	broadcast 192.168.15.255
+#	netmask 255.255.255.0
+#	gateway 192.168.15.1 
+#	bridge_ports eth0
+#	bridge_stp off       
+#       bridge_waitport 0  
+#       bridge_fd 0         

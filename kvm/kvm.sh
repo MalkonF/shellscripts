@@ -24,6 +24,13 @@ APP="qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils libosi
 ISO_DEBIAN="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.0.0-amd64-netinst.iso"
 ISO_CENTOS="http://mirror.ufscar.br/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso"
 
+#Check if is running with root permissions
+if [ `id -u` -ne 0 ] 
+then
+	echo "The script must be run as root! Use sudo instead."
+   	exit 1
+fi
+
 if egrep  -iq "svm|vmx" /proc/cpuinfo; 
 then
 	VIRT="y"

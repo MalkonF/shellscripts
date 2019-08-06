@@ -30,7 +30,7 @@ AUTHOR_CONTACT="contact@malkon.me"
 
 clear
 
-[ -f /bin/sh ] && echo "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
+[ -f /bin/sh ] && printf "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
 See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
 
 echo "\033[1mEnter the directory path to backup:\033[0m\c"
@@ -58,7 +58,7 @@ then
 	
 	#Calculate size available
 	size=$(df -Ph $dbackup | tail -1 | awk '{print $4}')
-	echo "\nThe size available of $dbackup is $size. Do you want to delete all files in folder?[y/n]\c?"
+	printf "\nThe size available of $dbackup is $size. Do you want to delete all files in folder?[y/n]\c?"
 	read ans
 		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
 		then
@@ -74,7 +74,7 @@ then
 			fi
 		fi
 
-	echo "\nBacking up $sbackup to $dbackup/$file..."
+	printf "\nBacking up $sbackup to $dbackup/$file..."
 
 	# Backup the files using tar.
 	tar czf  $dbackup/$file $sbackup
@@ -83,8 +83,8 @@ then
 	then
 		#Check file sizes.
 		size_backup=$(ls -lha $dbackup | tail -1 | awk '{print $5}')
-		echo "\nThe size of backup is: $size_backup.\n"
-		echo "\033[01;32mBackup finished successfully.\n\033[0m"
+		printf "\nThe size of backup is: $size_backup.\n\n"
+		printf "\033[01;32mBackup finished successfully.\n\n\033[0m"
 	else
 		echo "\033[31mBackup error!\033[0m"
 		exit 1
@@ -94,5 +94,5 @@ else
 	exit 1
 fi
 
-echo "Thanks for using this script.\n$AUTHOR \n$AUTHOR_CONTACT"
+printf "Thanks for using this script.\n$AUTHOR \n$AUTHOR_CONTACT\n"
 

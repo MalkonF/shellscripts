@@ -25,8 +25,6 @@
 #
 ##***********************************************************************************
 
-set -u
-
 AUTHOR="Malkon F"
 AUTHOR_CONTACT="contact@malkon.me"
 
@@ -86,7 +84,7 @@ then
 		#Check file sizes.
 		size_backup=$(ls -lha $dbackup | tail -1 | awk '{print $5}')
 		echo "\nThe size of backup is: $size_backup.\n"
-		echo "\033[01;32mBackup finished successfully.\n\n\033[0m"
+		echo "\033[01;32mBackup finished successfully.\n\033[0m"
 	else
 		echo "\033[31mBackup error!\033[0m"
 		exit 1
@@ -95,4 +93,6 @@ else
 	echo "\033[31mYou don't have permissions to write in this directory. Use sudo instead.\033[0m"
 	exit 1
 fi
+
+echo "Thanks for using this script.\n$AUTHOR \n$AUTHOR_CONTACT"
 

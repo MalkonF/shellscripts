@@ -47,11 +47,11 @@ else
 fi
 
 echo "To give permission for another user to run KVM?[y/n]"
-read USER_EXEC
+read -r USER_EXEC
 if [ "$USER_EXEC" = "y" ] 
 then
 	echo "Which user?"
-	read USER
+	read -r USER
 	USER_EXIST=$(id -u "$USER" > /dev/null 2>&1;echo $?)
 	if [ "$USER_EXIST" -eq 0 ]
 	then
@@ -66,11 +66,11 @@ fi
 #https://superuser.com/questions/597834/bridging-wifi-to-ethernet-on-ubuntu-not-working
 
 echo "Do you want to configure bridge networking?[y/n]"
-read CONFIG_BRIDGE
+read -r CONFIG_BRIDGE
 if [ "$CONFIG_BRIDGE" = "y" ]
 then
 	echo "Which network interface do you want to use as a bridge? e.g. eth0, enp2s0, wlp1s0 etc"
-	read IFACE
+	read -r IFACE
 	cp bridge_configuration /etc/network/interfaces.d/br0
 	sed -i -e "s/eth0/$IFACE/g" /etc/network/interfaces.d/br0
 	#systemctl restart network-manager
@@ -85,17 +85,17 @@ fi
 #https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=889990
 
 echo "what's the name of the virtual machine?"
-read VM_NAME
+read -r VM_NAME
 echo "How much RAM memory? e.g. 1024, 2048 etc?"
-read MEM_RAM
+read -r MEM_RAM
 echo "How many CPU's?"
-read CORE_CPU
+read -r CORE_CPU
 echo "What O.S are you installing?\nOpen another terminal and type the command \033[31mosinfo-query os\033[0m for get a list of acceptable values ​​for installation"
-read OS_VARIANT
+read -r OS_VARIANT
 echo "Enter the path where the installation ISO is stored"
-read PATH_ISO
+read -r PATH_ISO
 echo "What size disk?"
-read SIZE_HD
+read -r SIZE_HD
 virt-install \
 --virt-type=kvm \
 --name "$VM_NAME" \

@@ -18,12 +18,12 @@
 #
 #***********************************************************************************
 mkdir -p /opt/netbeans
-#wget -P /opt/netbeans https://www-eu.apache.org/dist/netbeans/netbeans/11.1/Apache-NetBeans-11.1-bin-linux-x64.sh
+wget -P /opt/netbeans https://www-eu.apache.org/dist/netbeans/netbeans/11.1/Apache-NetBeans-11.1-bin-linux-x64.sh
 chmod +x /opt/netbeans/Apache-NetBeans-11.1-bin-linux-x64.sh
 cd /opt/netbeans/ || exit
 ./Apache-NetBeans-11.1-bin-linux-x64.sh
 
-#wget -P /opt https://download.springsource.com/release/STS4/4.3.1.RELEASE/dist/e4.12/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz
+wget -P /opt https://download.springsource.com/release/STS4/4.3.1.RELEASE/dist/e4.12/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz
 tar -vzxf /opt/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz -C /opt
 cd /opt/sts-4.3.1.RELEASE/ || exit
 ./SpringToolSuite4

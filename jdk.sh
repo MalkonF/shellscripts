@@ -19,7 +19,7 @@
 #***********************************************************************************
 
 JDK_DOWNLOAD_PATH=$1
-JDK_VERSION=`zcat $JDK_DOWNLOAD_PATH | tar xvf - | awk -F/ '{print $1}' | uniq`
+JDK_VERSION="$(zcat $JDK_DOWNLOAD_PATH | tar xvf - | awk -F/ '{print $1}' | uniq)"
 JDK_PATH=/usr/local/java/$JDK_VERSION
 mkdir -p /usr/local/java
 tar -xf $JDK_DOWNLOAD_PATH -C /usr/local/java

@@ -32,6 +32,7 @@ tar -xf "$JDK_DOWNLOAD_PATH" -C /usr/local/java
 #export JRE_HOME
 #export PATH
 #EOF
+#source /etc/profile
 
 update-alternatives --install "/usr/bin/java" "java" "$JDK_PATH/bin/java" 1
 update-alternatives --set java "$JDK_PATH"/bin/java

@@ -7,7 +7,7 @@
 # To execute the script: chmod u+x backup.sh && sudo sh backup.sh
 #
 # Examples:
-#			Enter the directory path to backup:/home/anonymous
+#	    Enter the directory path to backup:/home/anonymous
 #           Enter the directory path where the files will be saved:/media/hd
 #
 # To restore the backup: sudo tar -xzvf <file_backup>.tgz

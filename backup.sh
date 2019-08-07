@@ -44,7 +44,7 @@ echo "\033[1mEnter the directory path where the files will be saved:\033[0m\c"
 read -r dbackup
 if [ -f "$dbackup" ]
 then
-        echo " \033[31mYou indeed entered a directory name\033[0m"
+	echo " \033[31mYou indeed entered a directory name\033[0m"
 	exit 1
 fi
 
@@ -54,27 +54,27 @@ then
 	day=$(date +%Y-%m-%d-%I-%M)
 	hostname=$(hostname -s)
 	file="$hostname-$day.tgz"
-	
+
 	#Calculate size available
 	size=$(df -Ph "$dbackup" | tail -1 | awk '{print $4}')
 	#Removing previous backup's
 	printf "\nThe size available of %s is %s. Do you want to delete all files in folder?[y/n]?\n" "$dbackup" "$size"
 	read -r ans
-		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
+	if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
+	then
+		if ! rm -rf "${dbackup:?}/"*
 		then
-			if ! rm -rf "${dbackup:?}/"*
-			then
-				echo "\033[31mError! Could not remove files\033[0m"
-				exit 1
-			else
-				echo "\033[01;32mFiles successfully removed.\033[0m"
-			fi
+			echo "\033[31mError! Could not remove files\033[0m"
+			exit 1
+		else
+			echo "\033[01;32mFiles successfully removed.\033[0m"
 		fi
+	fi
 
 	printf "\nBacking up %s to %s/%s..." "$sbackup" "$dbackup" "$file"
 
 	# Backup the files using tar.
-	
+
 
 	if ! tar czf  "$dbackup"/"$file" "$sbackup"
 	then
@@ -85,7 +85,7 @@ then
 		size_backup=$(ls -lha "$dbackup" | tail -1 | awk '{print $5}')
 		printf "\nThe size of backup is: %s \n\n" "$size_backup"
 		printf "\033[01;32mBackup finished successfully.\n\n\033[0m"	
-	fi
+	fi  
 else
 	echo "\033[31mYou don't have permissions to write in this directory. Use sudo instead.\033[0m"
 	exit 1

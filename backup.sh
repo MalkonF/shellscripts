@@ -1,5 +1,4 @@
 #!/bin/sh
-
 ##***********************************************************************************
 #
 # This script backup files in .tgz
@@ -25,7 +24,7 @@
 #
 ##***********************************************************************************
 
-AUTHOR="Malkon F"
+AUTHOR="MalkonF"
 AUTHOR_CONTACT="contact@malkon.me"
 
 clear
@@ -34,7 +33,7 @@ clear
 See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
 
 echo "\033[1mEnter the directory path to backup:\033[0m\c"
-read sbackup
+read -r sbackup
 if [ -f $sbackup ]
 then
 	echo " \033[31mYou indeed entered a directory name\033[0m" 
@@ -42,7 +41,7 @@ then
 fi
 
 echo "\033[1mEnter the directory path where the files will be saved:\033[0m\c"
-read dbackup
+read -r dbackup
 if [ -f $dbackup ]
 then
         echo " \033[31mYou indeed entered a directory name\033[0m"
@@ -58,8 +57,8 @@ then
 	
 	#Calculate size available
 	size=$(df -Ph $dbackup | tail -1 | awk '{print $4}')
-	printf "\nThe size available of $dbackup is $size. Do you want to delete all files in folder?[y/n]\c?"
-	read ans
+	printf "\nThe size available of %s is %s. Do you want to delete all files in folder?[y/n]?\n" $dbackup $size
+	read -r ans
 		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
 		then
 		        #Removing previous backup's
@@ -74,7 +73,7 @@ then
 			fi
 		fi
 
-	printf "\nBacking up $sbackup to $dbackup/$file..."
+	printf "\nBacking up %s to %s/%s..." $sbackup $dbackup $file
 
 	# Backup the files using tar.
 	tar czf  $dbackup/$file $sbackup
@@ -83,7 +82,7 @@ then
 	then
 		#Check file sizes.
 		size_backup=$(ls -lha $dbackup | tail -1 | awk '{print $5}')
-		printf "\nThe size of backup is: $size_backup.\n\n"
+		printf "\nThe size of backup is: %s \n\n" $size_backup
 		printf "\033[01;32mBackup finished successfully.\n\n\033[0m"
 	else
 		echo "\033[31mBackup error!\033[0m"
@@ -94,5 +93,6 @@ else
 	exit 1
 fi
 
-printf "Thanks for using this script.\n$AUTHOR \n$AUTHOR_CONTACT\n"
+echo "Thanks for using this script"
+printf "%s - %s\n" $AUTHOR $AUTHOR_CONTACT
 

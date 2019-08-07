@@ -57,36 +57,34 @@ then
 	
 	#Calculate size available
 	size=$(df -Ph "$dbackup" | tail -1 | awk '{print $4}')
+	#Removing previous backup's
 	printf "\nThe size available of %s is %s. Do you want to delete all files in folder?[y/n]?\n" "$dbackup" "$size"
 	read -r ans
 		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
 		then
-		        #Removing previous backup's
-			rm -rf "${dbackup:?}/"*
-
-			if [ $? -eq 0 ]
+			if ! rm -rf "${dbackup:?}/"*
 			then
-				echo "\033[01;32mFiles successfully removed.\033[0m"
-			else
 				echo "\033[31mError! Could not remove files\033[0m"
 				exit 1
+			else
+				echo "\033[01;32mFiles successfully removed.\033[0m"
 			fi
 		fi
 
 	printf "\nBacking up %s to %s/%s..." "$sbackup" "$dbackup" "$file"
 
 	# Backup the files using tar.
-	tar czf  "$dbackup"/"$file" "$sbackup"
+	
 
-	if [ $? -eq 0 ]
+	if ! tar czf  "$dbackup"/"$file" "$sbackup"
 	then
+		echo "\033[31mBackup error!\033[0m"
+		exit 1
+	else
 		#Check file sizes.
 		size_backup=$(ls -lha "$dbackup" | tail -1 | awk '{print $5}')
 		printf "\nThe size of backup is: %s \n\n" "$size_backup"
-		printf "\033[01;32mBackup finished successfully.\n\n\033[0m"
-	else
-		echo "\033[31mBackup error!\033[0m"
-		exit 1
+		printf "\033[01;32mBackup finished successfully.\n\n\033[0m"	
 	fi
 else
 	echo "\033[31mYou don't have permissions to write in this directory. Use sudo instead.\033[0m"

@@ -74,8 +74,6 @@ then
 	printf "\nBacking up %s to %s/%s..." "$sbackup" "$dbackup" "$file"
 
 	# Backup the files using tar.
-
-
 	if ! tar czf  "$dbackup"/"$file" "$sbackup"
 	then
 		echo "\033[31mBackup error!\033[0m"

@@ -19,10 +19,10 @@
 #***********************************************************************************
 
 JDK_DOWNLOAD_PATH=$1
-JDK_VERSION="$(zcat $JDK_DOWNLOAD_PATH | tar xvf - | awk -F/ '{print $1}' | uniq)"
+JDK_VERSION="$(zcat "$JDK_DOWNLOAD_PATH" | tar xvf - | awk -F/ '{print $1}' | uniq)"
 JDK_PATH=/usr/local/java/$JDK_VERSION
 mkdir -p /usr/local/java
-tar -xf $JDK_DOWNLOAD_PATH -C /usr/local/java
+tar -xf "$JDK_DOWNLOAD_PATH" -C /usr/local/java
 
 #cat >> /etc/profile <<EOF
 #JAVA_HOME=$JDK_PATH
@@ -34,8 +34,8 @@ tar -xf $JDK_DOWNLOAD_PATH -C /usr/local/java
 #EOF
 
 update-alternatives --install "/usr/bin/java" "java" "$JDK_PATH/bin/java" 1
-update-alternatives --set java $JDK_PATH/bin/java
+update-alternatives --set java "$JDK_PATH"/bin/java
 update-alternatives --install "/usr/bin/javac" "javac" "$JDK_PATH/bin/javac" 1
-update-alternatives --set javac $JDK_PATH/bin/javac 
+update-alternatives --set javac "$JDK_PATH"/bin/javac 
 
 

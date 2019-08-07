@@ -1,5 +1,4 @@
 #!/bin/bash
-
 ##***********************************************************************************
 #
 # Este script limpa a lixeira do usuário logado. 
@@ -29,7 +28,7 @@ esvaziar_lixeira
  {
    echo "Esvaziando a lixeira..."
    path="${HOME}/.local/share/Trash/files"  
-   cd "$path"
+   cd "$path" || return
    for file in *
    do
    rm -rf "$file"

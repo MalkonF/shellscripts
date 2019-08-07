@@ -25,7 +25,7 @@ ISO_DEBIAN="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.
 ISO_CENTOS="http://mirror.ufscar.br/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso"
 
 #Check if is running with root permissions
-if [ `id -u` -ne 0 ] 
+if [ "$(id -u)" -ne 0 ] 
 then
 	echo "The script must be run as root! Use sudo instead."
    	exit 1

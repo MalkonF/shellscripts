@@ -29,6 +29,9 @@ printf "\nData: %s" "$DATA"
 printf "\nHorário: %s\n" "$HORA"
 sleep 2
 
+apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade &&
+apt-get -y autoremove && apt-get -y clean && apt-get purge $(dpkg -l | awk '/^rc/ { print $2 }')
+
 if [ $? -eq 0 ]
 then
 	echo "\033[01;32mAtualização feita com sucesso \033[0m"

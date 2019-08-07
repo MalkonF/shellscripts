@@ -90,7 +90,7 @@ echo "How much RAM memory? e.g. 1024, 2048 etc?"
 read -r MEM_RAM
 echo "How many CPU's?"
 read -r CORE_CPU
-echo "What O.S are you installing?\nOpen another terminal and type the command \033[31mosinfo-query os\033[0m for get a list of acceptable values ​​for installation"
+printf "What O.S are you installing?\nOpen another terminal and type the command \033[31mosinfo-query os\033[0m for get a list of acceptable values ​​for installation\n"
 read -r OS_VARIANT
 echo "Enter the path where the installation ISO is stored"
 read -r PATH_ISO

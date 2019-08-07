@@ -41,22 +41,22 @@ fi
 if [ $VIRT = "y" ] 
 then
 	aptitude update
-	aptitude install -y $APP
+	aptitude install -y "$APP"
 else
 	echo "KVM requires Intel VT or AMD SVM technologies to work"
 fi
 
 echo "To give permission for another user to run KVM?[y/n]"
 read USER_EXEC
-if [ $USER_EXEC = "y" ] 
+if [ "$USER_EXEC" = "y" ] 
 then
-	echo "Which user??"
+	echo "Which user?"
 	read USER
-	USER_EXIST=$(id -u $USER > /dev/null 2>&1;echo $?)
-	if [ $USER_EXIST -eq 0 ]
+	USER_EXIST=$(id -u "$USER" > /dev/null 2>&1;echo $?)
+	if [ "$USER_EXIST" -eq 0 ]
 	then
-		adduser $USER libvirt
-		adduser $USER libvirt-qemu	
+		adduser "$USER" libvirt
+		adduser "$USER" libvirt-qemu	
 	else
 		echo "This user don't exist"
 	fi
@@ -67,7 +67,7 @@ fi
 
 echo "Do you want to configure bridge networking?[y/n]"
 read CONFIG_BRIDGE
-if [ $CONFIG_BRIDGE = "y" ]
+if [ "$CONFIG_BRIDGE" = "y" ]
 then
 	echo "Which network interface do you want to use as a bridge? e.g. eth0, enp2s0, wlp1s0 etc"
 	read IFACE
@@ -98,13 +98,13 @@ echo "What size disk?"
 read SIZE_HD
 virt-install \
 --virt-type=kvm \
---name $VM_NAME \
---ram $MEM_RAM \
---vcpus=$CORE_CPU \
---os-variant=$OS_VARIANT \
+--name "$VM_NAME" \
+--ram "$MEM_RAM" \
+--vcpus="$CORE_CPU" \
+--os-variant="$OS_VARIANT" \
 --virt-type=kvm \
 --hvm \
---cdrom=$PATH_ISO \
+--cdrom="$PATH_ISO" \
 --network=bridge=br0,model=virtio \
 --graphics vnc \
---disk path=/var/lib/libvirt/images/$OS_VARIANT.qcow2,size=$SIZE_HD,bus=virtio,format=qcow2
+--disk path=/var/lib/libvirt/images/"$OS_VARIANT".qcow2,size="$SIZE_HD",bus=virtio,format=qcow2

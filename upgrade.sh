@@ -18,12 +18,15 @@
 #
 ##***********************************************************************************
 
-[ -f /bin/sh ] && echo "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
+[ -f /bin/sh ] && printf "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
  See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
 
-NOME=`whoami` 
-HORA=$(date +"%T, %d/%m/%y, %A")
-    echo "Atualizando o sistema com o usuário" $NOME "as" $HORA "\nAguarde até a finalização"
+NOME=$(whoami) 
+DATA=$(date +'%d/%m/%Y')
+HORA=$(date +'%r')
+    printf "Atualizando o sistema com o usuário %s" "$NOME"
+    printf "\nData: %s" "$DATA" 
+    printf "\nHorário: %s\n" "$HORA"
     sleep 3
     sudo apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade &&
     apt-get -y autoremove && apt-get -y clean && apt-get purge $(dpkg -l | awk '/^rc/ { print $2 }')

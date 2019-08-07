@@ -28,10 +28,10 @@ ISO_CENTOS="http://mirror.ufscar.br/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-
 if [ "$(id -u)" -ne 0 ] 
 then
 	echo "The script must be run as root! Use sudo instead."
-   	exit 1
+	exit 1
 fi
 
-if egrep  -iq "svm|vmx" /proc/cpuinfo; 
+if grep -E  -iq "svm|vmx" /proc/cpuinfo; 
 then
 	VIRT="y"
 else
@@ -97,14 +97,14 @@ read -r PATH_ISO
 echo "What size disk?"
 read -r SIZE_HD
 virt-install \
---virt-type=kvm \
---name "$VM_NAME" \
---ram "$MEM_RAM" \
---vcpus="$CORE_CPU" \
---os-variant="$OS_VARIANT" \
---virt-type=kvm \
---hvm \
---cdrom="$PATH_ISO" \
---network=bridge=br0,model=virtio \
---graphics vnc \
---disk path=/var/lib/libvirt/images/"$OS_VARIANT".qcow2,size="$SIZE_HD",bus=virtio,format=qcow2
+	--virt-type=kvm \
+	--name "$VM_NAME" \
+	--ram "$MEM_RAM" \
+	--vcpus="$CORE_CPU" \
+	--os-variant="$OS_VARIANT" \
+	--virt-type=kvm \
+	--hvm \
+	--cdrom="$PATH_ISO" \
+	--network=bridge=br0,model=virtio \
+	--graphics vnc \
+	--disk path=/var/lib/libvirt/images/"$OS_VARIANT".qcow2,size="$SIZE_HD",bus=virtio,format=qcow2

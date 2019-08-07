@@ -62,7 +62,7 @@ then
 		if [ "$ans" = "y" ] || [ "$ans" = "Y" ]
 		then
 		        #Removing previous backup's
-			rm -rf "$dbackup"/*
+			rm -rf "${dbackup:?}/"*
 
 			if [ $? -eq 0 ]
 			then

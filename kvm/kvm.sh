@@ -41,7 +41,7 @@ fi
 if [ $VIRT = "y" ] 
 then
 	aptitude update
-	aptitude install -y "$APP"
+	aptitude install -y $APP
 else
 	echo "KVM requires Intel VT or AMD SVM technologies to work"
 fi

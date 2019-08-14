@@ -23,6 +23,7 @@ APP="qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils libosi
 #Implement ISO download later
 ISO_DEBIAN="https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.0.0-amd64-netinst.iso"
 ISO_CENTOS="http://mirror.ufscar.br/centos/7.6.1810/isos/x86_64/CentOS-7-x86_64-Minimal-1810.iso"
+#USER="$(whoami)"
 
 #Check if is running with root permissions
 if [ "$(id -u)" -ne 0 ] 
@@ -40,8 +41,8 @@ fi
 
 if [ $VIRT = "y" ] 
 then
-	aptitude update
-	aptitude install -y "$APP"
+	apt-get update
+	apt-get install -y $APP
 else
 	echo "KVM requires Intel VT or AMD SVM technologies to work"
 fi
@@ -73,7 +74,7 @@ then
 	read -r IFACE
 	cp bridge_configuration /etc/network/interfaces.d/br0
 	sed -i -e "s/eth0/$IFACE/g" /etc/network/interfaces.d/br0
-	#systemctl restart network-manager
+	/etc/init.d/networking restart
 
 	cp bridged.xml /root/bridged.xml
 	virsh net-define --file /root/bridged.xml

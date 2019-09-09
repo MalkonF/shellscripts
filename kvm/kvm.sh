@@ -41,13 +41,8 @@ fi
 
 if [ $VIRT = "y" ] 
 then
-<<<<<<< HEAD
 	apt-get update
 	apt-get install -y $APP
-=======
-	aptitude update
-	aptitude install -y $APP
->>>>>>> a76eb37bcf469d3a43e4319e87ccbb16b4a5d9c9
 else
 	echo "KVM requires Intel VT or AMD SVM technologies to work"
 fi

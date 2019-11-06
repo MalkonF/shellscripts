@@ -2,7 +2,7 @@
 #****************************************************************************************************
 #
 # This script installs Netbeans, SpringTool Suite and/or IntelliJ IDEA on Debian / GNU Linux systems.
-# To run the script: chmod u+x ide_java.sh && sudo sh ide_java.sh
+# To run the script: chmod u+x ide_java.sh 
 #
 # Dependencies: JDK
 #
@@ -21,16 +21,22 @@
 
 SCRIPT_NAME=$(basename $0)
 
+#Check if is running with root permissions
+if [ "$(id -u)" -ne 0 ] 
+then
+	echo "The script must be run as root! Use sudo instead."
+	exit 1
+fi
+
 printusage()
 {
    echo "Usage:"
-           echo "${SCRIPT_NAME} install netbeans"
-           echo "${SCRIPT_NAME} install spring"
-	   echo "${SCRIPT_NAME} install Intellij"
-	   echo "${SCRIPT_NAME} remove netbeans"
-	   echo "${SCRIPT_NAME} remove spring"
-	   echo "${SCRIPT_NAME} remove intellij"
-	
+           echo "${SCRIPT_NAME} -install netbeans"
+           echo "${SCRIPT_NAME} -install spring"
+	   echo "${SCRIPT_NAME} -install Intellij"
+	   echo "${SCRIPT_NAME} -remove netbeans"
+	   echo "${SCRIPT_NAME} -remove spring"
+	   echo "${SCRIPT_NAME} -remove intellij"
 }
 
 install_netbeans()
@@ -39,15 +45,23 @@ install_netbeans()
    wget -P /opt/netbeans https://www-eu.apache.org/dist/netbeans/netbeans/11.1/Apache-NetBeans-11.1-bin-linux-x64.sh
    chmod +x /opt/netbeans/Apache-NetBeans-11.1-bin-linux-x64.sh
    cd /opt/netbeans/ || exit
-   ./Apache-NetBeans-11.1-bin-linux-x64.sh
+   sudo -u $SUDO_USER ./Apache-NetBeans-11.1-bin-linux-x64.sh
 }
 
 install_spring()
 {
    wget -P /opt https://download.springsource.com/release/STS4/4.3.1.RELEASE/dist/e4.12/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz
-   tar -vzxf /opt/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz -C /opt
+   tar -zxf /opt/spring-tool-suite-4-4.3.1.RELEASE-e4.12.0-linux.gtk.x86_64.tar.gz -C /opt
    cd /opt/sts-4.3.1.RELEASE/ || exit
-   ./SpringToolSuite4
+   sudo -u $SUDO_USER ./SpringToolSuite4
+}
+
+install_intellij()
+{
+   wget -P /opt https://download.jetbrains.com/toolbox/jetbrains-toolbox-1.16.6016.tar.gz
+   tar -xzf /opt/jetbrains-toolbox-1.16.6016.tar.gz -C /opt
+   cd /opt/jetbrains-toolbox-1.16.6016  || exit
+   sudo -u $SUDO_USER ./jetbrains-toolbox
 }
 
 case "$1" in
@@ -59,6 +73,9 @@ case "$1" in
        "spring" )
        install_spring
        ;;
+       "intellij" )
+       install_intellij
+       ;;
    esac
    ;;
       * )
@@ -67,5 +84,3 @@ case "$1" in
          exit 1
          ;;
 esac
-
-

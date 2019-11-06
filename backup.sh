@@ -1,4 +1,9 @@
 #!/bin/sh
+
+if [ -n "$BASH" ]; then
+	shopt -s extglob
+	set -o posix
+
 ##***********************************************************************************
 #
 # This script backup files in .tgz
@@ -26,6 +31,8 @@
 
 AUTHOR="MalkonF"
 AUTHOR_CONTACT="contact@malkon.me"
+
+set -o nounset
 
 clear
 

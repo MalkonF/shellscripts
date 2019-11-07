@@ -1,4 +1,9 @@
 #!/bin/sh
+
+if [ -n "$BASH" ]; then
+	shopt -s extglob
+	set -o posix
+
 #***********************************************************************************
 #
 # This script installs KVM((https://www.linux-kvm.org/page/Main_Page)) on Debian / GNU Linux systems.
@@ -17,6 +22,8 @@
 # This script is licensed under GPLv3.
 #
 #***********************************************************************************
+
+set -o nounset
 
 APP="qemu-kvm libvirt-clients libvirt-daemon-system virtinst bridge-utils libosinfo-bin"
 

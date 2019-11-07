@@ -18,8 +18,16 @@
 #
 ##***********************************************************************************
 
+set -o nounset
+
 [ -f /bin/sh ] && printf "\n\n This script comes with ABSOLUTELY NO WARRANTY. This is free software, and you are welcome to redistribute it under the terms of the GNU General Public License.
 See the LICENSE file for details about using this software.\n\n" || echo "/bin/sh not found" exit 1
+
+if [ "$(id -u)" -ne 0 ] 
+then
+	echo "The script must be run as root! Use sudo instead."
+	exit 1
+fi
 
 NOME="$(whoami)" 
 DATA="$(date +'%d/%m/%Y')"

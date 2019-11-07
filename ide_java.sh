@@ -1,4 +1,9 @@
 #!/bin/sh
+
+if [ -n "$BASH" ]; then
+	shopt -s extglob
+	set -o posix
+
 #****************************************************************************************************
 #
 # This script installs Netbeans, SpringTool Suite and/or IntelliJ IDEA on Debian / GNU Linux systems.
@@ -18,6 +23,8 @@
 # This script is licensed under GPLv3.
 #
 #****************************************************************************************************
+
+set -o nounset
 
 SCRIPT_NAME=$(basename $0)
 

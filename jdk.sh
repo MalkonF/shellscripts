@@ -20,6 +20,8 @@
 #
 #***********************************************************************************
 
+set -o nounset
+
 SCRIPT_NAME=$(basename $0)
 JDK_DOWNLOAD_PATH=$2
 JDK_VERSION="$(zcat "$JDK_DOWNLOAD_PATH" | tar xvf - | awk -F/ '{print $1}' | uniq)"

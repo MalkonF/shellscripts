@@ -38,7 +38,7 @@ printf "\nHorário: %s\n" "$HORA"
 sleep 2
 
 apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade &&
-apt-get -y autoremove && apt-get -y clean && apt-get purge $(dpkg -l | awk '/^rc/ { print $2 }')
+apt-get -y autoremove && apt-get -y clean && apt-get -y autoclean && apt-get purge $(dpkg -l | awk '/^rc/ { print $2 }')
 
 if [ $? -eq 0 ]
 then
